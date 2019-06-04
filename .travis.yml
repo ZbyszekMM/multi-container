@@ -1,0 +1,31 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zm/react-test -f ./client/Dockeerfile.dev ./client
+
+# tutaj wszystkie komendy niezbędne do wykonania testów. Travis będzie sprawdzał rezultat każdej z tych komend
+# Jako ostatnie parameter docker run jest polecenie, które będzie wykonane w kontenerze po uruchomieniu jego
+# w tym przypadku jest to npm run test .  -- --coverage to komenda, która 
+script:
+  - docker run zm/react-test npm test -- --coverage
+
+# teraz budowane sa produkcyjne kontenery, wykorzystują defaultowe nazwy Dockerfile
+after_success:
+  - docker run build -t zm/multi-container-client ./client
+  - docker run build -t zm/multi-container-nginx ./nginx
+  - docker run build -t zm/multi-container-server ./server
+  - docker run build -t zm/multi-container-worker ./worker
+
+
+# Log in to the Docker. Credentials travis weźmie z environment variables skonfigurowanych w travis-ci.org
+# dziwnie to wygląda, nie rozumiem, dlaczego nie można by było umieścić hasła tak samo jak id
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# push to docker hub
+
+  - docker push zm/multi-container-client
+  - docker push zm/multi-container-nginx 
+  - docker push zm/multi-container-server
+  - docker push zm/multi-container-worker
