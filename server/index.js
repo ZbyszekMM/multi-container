@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 // WAŻNE - dyrektywa async poniżej
 app.get('/values/all', async (req, res) => {  //pokaż wszystkie wartości indeksów widziane w przeszłości
   
-  console.log('API CALL - was called to list wartośći indeksów');
+  console.log('in API CALL - was called to list wartośći indeksów');
   const values = await pgClient.query('SELECT * from values');
   
   res.send(values.rows);
@@ -63,7 +63,7 @@ app.get('/values/all', async (req, res) => {  //pokaż wszystkie wartości indek
 
 // z redis wyciągnij wszystkie pary ze zbioru 'values'. W terminologii redis ten zbiór to "hash value"(?), stąd funkcja hgetall
 app.get('/values/current', async (req, res) => {
-  console.log('API CALL  - was called to list pary');
+  console.log('in API CALL  - was called to list pary');
   redisClient.hgetall('values', (err, values) => { //hgetall bierze jako 2gi argument callback o 2 argumentach, chyba(?) zdefiniowany niejako w środku
     res.send(values);                               // i zwracający NO właśnie CO?
   });
