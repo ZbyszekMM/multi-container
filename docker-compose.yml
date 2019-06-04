@@ -1,0 +1,48 @@
+version: '3'
+services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '4000:80'
+  postgres:
+    image: 'postgres:latest'   #dla tego serwisu nie mamy Dockerfile, po prostu zciągamy z registry
+  redis:
+    image: 'redis:latest'
+  api:
+    build:
+      dockerfile: Dockerfile.dev # tu nie podaje się ścieżki!
+      context: ./server          # a to jest miejsce, gdzie to wszystko potrzebne znajduje się
+    volumes:
+      - "\\app\\node_modules"      # tego folderu nie poddawaj przemapowywaniu
+      - ".\\server:\\app"           # jak chcesz coś z /app to szukaj w ./server u hosta 
+    environment:
+      - REDIS_HOST=redis       # to specyfika docker-compose, ponieważ jest to uprzednio zdefiniowany serwis, to docker-compose ustali szczególoiki
+      - REDIS_PORT=6379         # z dokumentacji image'u redis
+      - PGUSER=postgres
+      - PGHOST=postgres         # znowuż specyfika docker-compose - on ustali szczególiki tego serwwisu
+      - PGDATABASE=postgres            # z dokumentacji image'u - defaultowa db
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes: 
+        - "\\app\\node_modules"
+        - ".\\client:\\app"
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes: 
+        - "\\app\\node_modules"
+        - ".\\worker:\\app"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+  
+
+
