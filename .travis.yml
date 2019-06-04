@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t zm/react-test -f ./client/Dockeerfile.dev ./client
+  - docker build -t zm/react-test -f ./client/Dockerfile.dev ./client
 
 # tutaj wszystkie komendy niezbędne do wykonania testów. Travis będzie sprawdzał rezultat każdej z tych komend
 # Jako ostatnie parameter docker run jest polecenie, które będzie wykonane w kontenerze po uruchomieniu jego
