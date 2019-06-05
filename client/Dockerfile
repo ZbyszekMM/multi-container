@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx
 
 # to jest ten dodatkowy nginx, który serwuje strony. 
-COPY ./nginx/dfeault.conf /etc/nginx/conf.d/default.con
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.con
 COPY --from=builder /app/build /usr/share/nginx/html
 
 # dyrektywa EXPOSE jest przeznaczona dla człowieka, żeby poinformować o konieczności wyeksportowania portu podczas docker run
