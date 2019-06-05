@@ -29,3 +29,17 @@ after_success:
   - docker push zbyszekm/multi-container-nginx 
   - docker push zbyszekm/multi-container-server
   - docker push zbyszekm/multi-container-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-central-1"
+  app: "ZM-MultiContainer" # nazwa aplikacji zgodnie z tym co jest w Elastic Beanstalk (EBS)
+  env: "ZmMultiContainer-env" # nazwa pierwszego środowiska w EBS
+  bucket_name: "elasticbeanstalk-eu-central-1-392634375159" #nazwa bucketu, do którego uploadowany jest kod. JEDEN bucket dla wszystkich projektów EBS
+  bucket_path: "multi-container"
+  skip_cleanup: true # dodałem za dokumentacją travis by uniknąć problemu "no stash entries found" podczas deployowania do EBS
+  on:
+    branch: master # trigger deployment TYLKO jeśli zostanie skomitowana zmiana w master branch kodu
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY" # nie wiadomo dlaczego tutaj zadziałało autorowi tylko jeśli w ""
