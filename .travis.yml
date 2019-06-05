@@ -13,10 +13,10 @@ script:
 
 # teraz budowane sa produkcyjne kontenery, wykorzystują defaultowe nazwy Dockerfile
 after_success:
-  - docker build -t zm/multi-container-client ./client
-  - docker build -t zm/multi-container-nginx ./nginx
-  - docker build -t zm/multi-container-server ./server
-  - docker build -t zm/multi-container-worker ./worker
+  - docker build -t zbyszekm/multi-container-client ./client
+  - docker build -t zbyszekm/multi-container-nginx ./nginx
+  - docker build -t zbyszekm/multi-container-server ./server
+  - docker build -t zbyszekm/multi-container-worker ./worker
 
 
 # Log in to the Docker. Credentials travis weźmie z environment variables skonfigurowanych w travis-ci.org
@@ -25,7 +25,7 @@ after_success:
 
 # push to docker hub
 
-  - docker push zm/multi-container-client
-  - docker push zm/multi-container-nginx 
-  - docker push zm/multi-container-server
-  - docker push zm/multi-container-worker
+  - docker push zbyszekm/multi-container-client
+  - docker push zbyszekm/multi-container-nginx 
+  - docker push zbyszekm/multi-container-server
+  - docker push zbyszekm/multi-container-worker
