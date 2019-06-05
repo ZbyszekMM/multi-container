@@ -6,6 +6,8 @@ CEL EDUKACYJNY:
     * wykorzystanie nodemon
     * nginx
     * Elastic Beanstalk (EBS) wykorzysta kontenery zbudowane przez Travis (zobacz notatki o travis) załadowane do docker-hub
+    * Plik sterujący dla EBS - potrzebny gdy jest wiele kontenerów - Dockerrun.aws.json
+    * Użycie Amazon.RDS (relational db service) i Amazon.ElastiCache
 
 
 DOKUMENTACJA:
@@ -13,6 +15,9 @@ DOKUMENTACJA:
 
 
 PLIKI:
+        .\Dockerrun.aws.json
+        .\.travis.yml
+        .\docker-compose.yml
     podprojekt client zawiera frontend wygenerowany przez create-react-app, edytkowano następujące pliki:
         .\client\src\OtherPage.js
         .\client\src\Fib.js - tutaj są wywołania poszczególnych routes (i apis)
