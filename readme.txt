@@ -38,7 +38,7 @@ WYWOŁANIE:
     
     
 INTEGRATIONS:
-   lokalnie w git zdalne repo w github dostało nazwę 4FiboRemote 
+   lokalnie w git zdalne repo w github dostało nazwę 4FiboRemote, nazwa origin wciąż działa (nie skasowałem jej). Można to zobaczyć przez git remote -v
 
 
 
