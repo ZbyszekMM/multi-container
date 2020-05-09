@@ -35,6 +35,10 @@ PLIKI:
 
 WYWOŁANIE:
     http://192.168.99.100:4000/      port 4000 został ustawiony w docker-compose  jako port wejściowy dla servisu nginx
+    
+    
+INTEGRATIONS:
+   lokalnie w git zdalne repo w github dostało nazwę 4FiboRemote 
 
 
 
